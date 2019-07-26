@@ -3,12 +3,20 @@ title: "Previsão de gastos no nubank"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
 setwd("~/git/previsaoGastosNubank")
 library(readr)
 library(dplyr)
+library(knitr)
 source("codigos/carregar_varios_arquivos_csv_simultaneamente.R")
-gastos <- as.data.frame(lista_arquivos2[47])
-gastos %>% filter(amount > 0) %>% arrange(desc(amount))
 ```
 
+# Valores Positivos
+```{r Mostrar Valores Positivos}
+kable(contasJohn %>% arrange(date) %>% filter(amount > 0))
+```
+
+# Valores Negativos
+```{r Mostrar Valores Negativos}
+kable(contasJohn %>% arrange(date) %>% filter(amount <= 0))
+```
