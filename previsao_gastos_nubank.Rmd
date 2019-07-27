@@ -8,15 +8,24 @@ setwd("~/git/previsaoGastosNubank")
 library(readr)
 library(dplyr)
 library(knitr)
+library(lubridate)
 source("codigos/carregar_varios_arquivos_csv_simultaneamente.R")
 ```
 
 # Valores Positivos
 ```{r Mostrar Valores Positivos}
-kable(contasJohn %>% arrange(date) %>% filter(amount > 0))
+contasPositivas <- contasJohn %>% arrange(date) %>% filter(amount > 0)
+#kable(contasPositivas)
 ```
 
 # Valores Negativos
 ```{r Mostrar Valores Negativos}
-kable(contasJohn %>% arrange(date) %>% filter(amount <= 0))
+#kable(contasJohn %>% arrange(date) %>% filter(amount <= 0))
+```
+
+# Agrupamento por dias/soma e média dos gastos
+```{r Dias por soma e media}
+# Verificar pq o trimestre não bate com as datas e depois agrupar por dias novamente, para enviar ao modelo
+source("codigos/juntarDiasMesesTrimestresDeGastos.R")
+DiariaMensalETrimestral
 ```
