@@ -4,12 +4,13 @@ output: html_document
 ---
 
 ```{r include=FALSE}
-setwd("~/git/previsaoGastosNubank")
+caminho = "C:/Users/vinho/git/previsaoGastosNubank/"
+setwd(caminho)
 library(readr)
 library(dplyr)
 library(knitr)
 library(lubridate)
-source("codigos/carregar_varios_arquivos_csv_simultaneamente.R")
+source(sprintf("%*scodigos/carregar_varios_arquivos_csv_simultaneamente.R",0,caminho))
 ```
 
 # Valores Positivos
@@ -26,6 +27,6 @@ contasPositivas <- contasJohn %>% arrange(date) %>% filter(amount > 0)
 # Agrupamento por dias/soma e média dos gastos
 ```{r Dias por soma e media}
 # Verificar pq o trimestre não bate com as datas e depois agrupar por dias novamente, para enviar ao modelo
-source("codigos/juntarDiasMesesTrimestresDeGastos.R")
+source(sprintf("%*scodigos/juntarDiasMesesTrimestresDeGastos.R",0,caminho))
 DiariaMensalETrimestral
 ```
