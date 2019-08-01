@@ -9,6 +9,9 @@ library(readr)
 library(dplyr)
 library(knitr)
 library(lubridate)
+require(randomForest) # Arvores de Decisão
+library(caret)        # createDataPartition()
+#library("xlsx")
 source("codigos/carregar_varios_arquivos_csv_simultaneamente.R")
 ```
 
@@ -28,4 +31,34 @@ contasPositivas <- contasJohn %>% arrange(date) %>% filter(amount > 0)
 # Verificar pq o trimestre não bate com as datas e depois agrupar por dias novamente, para enviar ao modelo
 source("codigos/juntarDiasMesesTrimestresDeGastos.R")
 DiariaMensalETrimestral
+write.csv(DiariaMensalETrimestral, "Nubank.csv")
+base = DiariaMensalETrimestral
+```
+# Aplicar modelo Random Forest com tecnicas
+```{r}
+source("modelos/modeloRandonForest.R")
+rf_model_sales
+```
+
+
+# Normalizar as variaveis preditoras numericas
+```{r Normalizar}
+base = DiariaMensalETrimestral
+cols <- c(names(base))
+cols <- cols[-1]
+cols <- cols[-1]
+base$month = as.factor(base$month)
+base$month = as.numeric(base$month)
+base$year = as.factor(base$year)
+base$year = as.numeric(base$year)
+colunas <- cols
+str(base)
+base[, cols] <- scale(base[, cols])
+base
+```
+
+# Aplicar modelo Random Forest com normalização
+```{r}
+source("modelos/modeloRandonForest.R")
+rf_model_sales
 ```
