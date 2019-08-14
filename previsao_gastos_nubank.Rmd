@@ -11,6 +11,8 @@ library(knitr)
 library(lubridate)
 require(randomForest) # Arvores de Decisão
 library(caret)        # createDataPartition()
+library(quantmod) # cotações das ações e do Ibov
+library(Quandl) # Selic BACEN
 #library("xlsx")
 source("codigos/carregar_varios_arquivos_csv_simultaneamente.R")
 ```
@@ -62,3 +64,6 @@ base
 source("modelos/modeloRandonForest.R")
 rf_model_sales
 ```
+
+
+
